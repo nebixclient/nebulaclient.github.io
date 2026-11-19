@@ -47,7 +47,7 @@ h1 span{background:linear-gradient(90deg,var(--a),var(--b));-webkit-background-c
 .mr{display:flex;justify-content:space-between;background:#1c1c29;border-radius:6px;padding:7px 6px;margin-bottom:6px;font-size:10px}
 .mr b{font-size:8px;padding:2px 5px;border-radius:4px;background:#333344;color:#999}
 .mr.on b{background:var(--a);color:#fff}
-.stats{position:relative;z-index:2;max-width:1100px;margin:0 auto 30px;padding:0 5vw;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.stats{position:relative;z-index:2;max-width:1100px;margin:0 auto 30px;padding:0 5vw;display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
 .stats div{text-align:center;padding:20px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.02)}
 .stats strong{display:block;font-family:'Space Grotesk',Arial,sans-serif;font-size:30px}
 .stats span{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
@@ -113,7 +113,7 @@ footer p{font-size:13px}
 <div class="mc"><div class="mh">PERFORMANCE</div><div class="mr on"><span>Entity Culling</span><b>ON</b></div><div class="mr on"><span>Particle Reducer</span><b>ON</b></div><div class="mr"><span>FPS Dashboard</span><b>OFF</b></div></div>
 </div></div>
 </section>
-<div class="stats"><div><strong>170</strong><span>Modules</span></div><div><strong>9</strong><span>Categories</span></div><div><strong>26.3</strong><span>Minecraft</span></div><div><strong>25</strong><span>Java version</span></div></div>
+<div class="stats"><div><strong>170</strong><span>Modules</span></div><div><strong>9</strong><span>Categories</span></div><div><strong>26.3</strong><span>Minecraft</span></div><div><strong>25</strong><span>Java version</span></div><div><strong id="downloadCount">0</strong><span>DOWNLOADS</span></div></div>
 <section class="sec" id="features"><h2>Everything you need</h2><p class="sub">Built as a complete modular client — not a collection of placeholder buttons.</p>
 <div class="cards">
 <div class="card"><div class="ic">⚔</div><h3>Combat system</h3><p>Kill Aura, Aim Assist, Trigger Bot, Target HUD, reach control and Team Check for Hypixel-style team colours.</p></div>
@@ -350,6 +350,7 @@ footer p{font-size:13px}
       setTimeout(function(){copy.innerHTML='Copy';},1200);
     }
   };
+var dc=document.getElementById("downloadCount");function getCount(){var x=new XMLHttpRequest();x.open("GET","https://abacus.jasoncameron.dev/get/nebixclient/downloads",true);x.onreadystatechange=function(){if(x.readyState===4&&x.status===200){try{dc.innerHTML=JSON.parse(x.responseText).value}catch(e){}}};x.send()}getCount();var dl=document.querySelector("a[download]");if(dl){dl.onclick=function(){var x=new XMLHttpRequest();x.open("GET","https://abacus.jasoncameron.dev/hit/nebixclient/downloads",true);x.onreadystatechange=function(){if(x.readyState===4&&x.status===200){try{dc.innerHTML=JSON.parse(x.responseText).value}catch(e){}}};x.send()}};
 })();
 </script>
 </body>
