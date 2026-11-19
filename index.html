@@ -138,10 +138,10 @@ footer .brand{justify-content:center;margin-bottom:12px}footer p{font-size:13px}
 <section class="sec" id="download">
 <div class="head"><h2>Download</h2><p>One jar. Drop it into your Fabric mods folder.</p></div>
 <div class="dl">
-<div class="dlmain"><div class="fi">JAR</div><div><h3>nebula-client-v-26.3.jar</h3><p>Version 2.0 · Minecraft Java 26.3 · Client-side only</p><div class="chips"><span>355.6 KB</span><span>Fabric 0.19.3+</span><span>Java 25</span></div></div></div>
-<a class="btn" href="downloads/nebula-client-v-26.3.jar" download>DOWNLOAD JAR ↓</a>
+<div class="dlmain"><div class="fi">JAR</div><div><h3>nebula-client-26.3-v1.jar</h3><p>Version 2.0 · Minecraft Java 26.3 · Client-side only</p><div class="chips"><span>405.8 KB</span><span>Fabric 0.19.3+</span><span>Java 25</span></div></div></div>
+<a class="btn" href="downloads/nebula-client-26.3-v1.jar" download>DOWNLOAD JAR ↓</a>
 </div>
-<div class="hash"><div><span>SHA-256</span><code>004EE2FAB78341DBF9D0557143504DA6E7569947FD2D638E2B304B4DCD0C0958</code></div><button class="btn ghost s" id="copy">Copy</button></div>
+<div class="hash"><div><span>SHA-256</span><code>889536515F1D2D02A82DBA3065D12962BD64636276E082027D12F0A590443E0A</code></div><button class="btn ghost s" id="copy">Copy</button></div>
 <div class="steps">
 <div class="step"><i>01</i><h4>Install Fabric</h4><p>Install Fabric Loader 0.20.1 for Minecraft 26.3 with the official installer.</p></div>
 <div class="step"><i>02</i><h4>Add Fabric API</h4><p>Place <code>fabric-api-0.166.2+26.3.jar</code> in your mods folder.</p></div>
@@ -160,7 +160,7 @@ function draw(){const s=q.value.toLowerCase();const list=M.filter(([n,c])=>(acti
 tabs.onclick=e=>{const b=e.target.closest('.tab');if(!b)return;document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));b.classList.add('on');active=b.dataset.c;draw()};
 q.oninput=draw;draw();
 const tg=document.getElementById('toggle'),lk=document.getElementById('links');tg.onclick=()=>lk.classList.toggle('open');lk.onclick=e=>{if(e.target.tagName==='A')lk.classList.remove('open')};
-document.getElementById('copy').onclick=async()=>{try{await navigator.clipboard.writeText('004EE2FAB78341DBF9D0557143504DA6E7569947FD2D638E2B304B4DCD0C0958');const b=document.getElementById('copy');b.textContent='Copied';setTimeout(()=>b.textContent='Copy',1500)}catch(e){}};
+document.getElementById('copy').onclick=async()=>{try{await navigator.clipboard.writeText('889536515F1D2D02A82DBA3065D12962BD64636276E082027D12F0A590443E0A');const b=document.getElementById('copy');b.textContent='Copied';setTimeout(()=>b.textContent='Copy',1500)}catch(e){}};
 const glow=document.getElementById('cursorGlow'),mock=document.querySelector('.mock');
 let tx=innerWidth/2,ty=innerHeight/2,cx=tx,cy=ty;
 addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY});
