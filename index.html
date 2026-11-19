@@ -70,10 +70,15 @@ h1 span{background:linear-gradient(90deg,var(--a),var(--b));-webkit-background-c
 .step h4{margin:10px 0 8px;font-size:15px}.step p{color:var(--muted);font-size:13px;line-height:1.6}.step code{color:#c9a9ff}
 footer{position:relative;z-index:1;border-top:1px solid var(--line);padding:40px 6vw;text-align:center;color:var(--muted)}
 footer .brand{justify-content:center;margin-bottom:12px}footer p{font-size:13px}footer .sm{max-width:700px;margin:12px auto 0;font-size:11px;color:#6f6f83;line-height:1.6}
-@media(max-width:900px){.hero{grid-template-columns:1fr;padding-top:60px}.stats{grid-template-columns:repeat(2,1fr)}.links{display:none;position:absolute;top:70px;left:0;right:0;flex-direction:column;background:#0d0d15;padding:20px;border-bottom:1px solid var(--line)}.links.open{display:flex}.toggle{display:block}.mock{transform:none}}
+.cursor-glow{position:fixed;left:50%;top:50%;width:420px;height:420px;border-radius:50%;pointer-events:none;z-index:0;background:radial-gradient(circle,rgba(155,92,255,.18),rgba(76,125,255,.07) 45%,transparent 70%);transform:translate(-50%,-50%);mix-blend-mode:screen}
+.card,.dl,.step{position:relative;overflow:hidden}
+.card:before,.dl:before,.step:before{content:"";position:absolute;inset:0;background:radial-gradient(300px circle at var(--px,50%) var(--py,50%),rgba(155,92,255,.14),transparent 60%);opacity:0;transition:opacity .25s;pointer-events:none}
+.card:hover:before,.dl:hover:before,.step:hover:before{opacity:1}
+@media(max-width:900px){.cursor-glow{display:none}.mock{transform:none!important}.hero{grid-template-columns:1fr;padding-top:60px}.stats{grid-template-columns:repeat(2,1fr)}.links{display:none;position:absolute;top:70px;left:0;right:0;flex-direction:column;background:#0d0d15;padding:20px;border-bottom:1px solid var(--line)}.links.open{display:flex}.toggle{display:block}.mock{transform:none}}
 </style>
 </head>
 <body>
+<div class="cursor-glow" id="cursorGlow"></div>
 <div class="glow g1"></div><div class="glow g2"></div>
 <header class="nav">
 <a class="brand" href="#home"><span class="mark">N</span>&nbsp;NEBIX<small>CLIENT</small></a>
@@ -116,8 +121,8 @@ footer .brand{justify-content:center;margin-bottom:12px}footer p{font-size:13px}
 <section class="sec" id="download">
 <div class="head"><h2>Download</h2><p>One jar. Drop it into your Fabric mods folder.</p></div>
 <div class="dl">
-<div class="dlmain"><div class="fi">JAR</div><div><h3>nebula-client-1.0.0.jar</h3><p>Version 2.0 · Minecraft Java 26.3 · Client-side only</p><div class="chips"><span>355.6 KB</span><span>Fabric 0.19.3+</span><span>Java 25</span></div></div></div>
-<a class="btn" href="downloads/nebula-client-1.0.0.jar" download>DOWNLOAD JAR ↓</a>
+<div class="dlmain"><div class="fi">JAR</div><div><h3>nebula-client-v-26.3.jar</h3><p>Version 2.0 · Minecraft Java 26.3 · Client-side only</p><div class="chips"><span>355.6 KB</span><span>Fabric 0.19.3+</span><span>Java 25</span></div></div></div>
+<a class="btn" href="downloads/nebula-client-v-26.3.jar" download>DOWNLOAD JAR ↓</a>
 </div>
 <div class="hash"><div><span>SHA-256</span><code>004EE2FAB78341DBF9D0557143504DA6E7569947FD2D638E2B304B4DCD0C0958</code></div><button class="btn ghost s" id="copy">Copy</button></div>
 <div class="steps">
@@ -139,6 +144,11 @@ tabs.onclick=e=>{const b=e.target.closest('.tab');if(!b)return;document.querySel
 q.oninput=draw;draw();
 const tg=document.getElementById('toggle'),lk=document.getElementById('links');tg.onclick=()=>lk.classList.toggle('open');lk.onclick=e=>{if(e.target.tagName==='A')lk.classList.remove('open')};
 document.getElementById('copy').onclick=async()=>{try{await navigator.clipboard.writeText('004EE2FAB78341DBF9D0557143504DA6E7569947FD2D638E2B304B4DCD0C0958');const b=document.getElementById('copy');b.textContent='Copied';setTimeout(()=>b.textContent='Copy',1500)}catch(e){}};
+const glow=document.getElementById('cursorGlow'),mock=document.querySelector('.mock');
+let tx=innerWidth/2,ty=innerHeight/2,cx=tx,cy=ty;
+addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY});
+function frame(){cx+=(tx-cx)*.12;cy+=(ty-cy)*.12;glow.style.left=cx+'px';glow.style.top=cy+'px';if(mock&&innerWidth>900){const rx=(cx/innerWidth-.5)*8,ry=(cy/innerHeight-.5)*-8;mock.style.transform=`perspective(1200px) rotateY(${-7+rx}deg) rotateX(${3+ry}deg)`}requestAnimationFrame(frame)}frame();
+document.querySelectorAll('.card,.dl,.step').forEach(el=>el.addEventListener('mousemove',e=>{const r=el.getBoundingClientRect();el.style.setProperty('--px',(e.clientX-r.left)+'px');el.style.setProperty('--py',(e.clientY-r.top)+'px')}));
 </script>
 </body>
 </html>
