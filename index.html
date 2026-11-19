@@ -5,143 +5,293 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Nebix — Minecraft 26.3 Fabric Client</title>
 <meta name="description" content="Nebix — 170 modules, Meteor-style ClickGUI, combat, ESP and real FPS tools for Minecraft Java 26.3.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#08080e;--line:rgba(255,255,255,.08);--muted:#9a9aad;--a:#9b5cff;--b:#4c7dff}
-*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
-body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:#f2f1f7;overflow-x:hidden}
-.glow{position:fixed;border-radius:50%;filter:blur(140px);opacity:.2;pointer-events:none}
-.g1{width:560px;height:560px;background:var(--a);top:-180px;left:-120px}
-.g2{width:520px;height:520px;background:var(--b);top:320px;right:-200px}
-.nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px 6vw;background:rgba(8,8,14,.8);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
-.brand{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;color:#fff;text-decoration:none;display:flex;align-items:center;gap:9px}
-.mark{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;background:linear-gradient(135deg,var(--a),var(--b));box-shadow:0 0 22px rgba(155,92,255,.45)}
+:root{--bg:#08080e;--line:rgba(255,255,255,.09);--muted:#9a9aad;--a:#9b5cff;--b:#4c7dff}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,Arial,sans-serif;background:var(--bg);color:#f2f1f7;overflow-x:hidden}
+.glow{position:fixed;border-radius:50%;filter:blur(130px);opacity:.2;pointer-events:none;z-index:0;animation:floaty 14s ease-in-out infinite}
+.g1{width:520px;height:520px;background:var(--a);top:-160px;left:-120px}
+.g2{width:480px;height:480px;background:var(--b);top:340px;right:-180px;animation-delay:-7s}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
+#cursorGlow{position:fixed;left:50%;top:50%;width:380px;height:380px;margin:-190px 0 0 -190px;border-radius:50%;pointer-events:none;z-index:1;background:radial-gradient(circle,rgba(155,92,255,.16),rgba(76,125,255,.06) 45%,transparent 70%);transition:left .16s ease-out,top .16s ease-out;animation:breathe 5s ease-in-out infinite}
+@keyframes breathe{0%,100%{opacity:.75;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
+.nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 5vw;background:rgba(8,8,14,.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.brand{font-family:'Space Grotesk',Arial,sans-serif;font-weight:700;font-size:18px;color:#fff;text-decoration:none;display:flex;align-items:center;gap:8px}
+.mark{width:30px;height:30px;border-radius:8px;display:inline-grid;place-items:center;background:linear-gradient(135deg,var(--a),var(--b))}
 .brand small{color:var(--a);margin-left:3px}
-.links{display:flex;gap:28px}.links a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500}.links a:hover{color:#fff}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 24px;border-radius:11px;text-decoration:none;font-weight:700;font-size:14px;color:#fff;background:linear-gradient(135deg,var(--a),var(--b));box-shadow:0 8px 30px rgba(120,90,255,.28);border:0;cursor:pointer;transition:.2s}
-.btn:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(120,90,255,.42)}
-.btn.s{padding:9px 17px;font-size:12px}.ghost{background:transparent;border:1px solid var(--line);box-shadow:none}
-.toggle{display:none;background:none;border:0;color:#fff;font-size:22px;cursor:pointer}
-.hero{position:relative;z-index:1;max-width:1240px;margin:0 auto;padding:100px 6vw 70px;display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center}
-.badge{display:inline-block;padding:7px 14px;border-radius:99px;border:1px solid rgba(155,92,255,.35);background:rgba(155,92,255,.1);color:#c9a9ff;font-size:11px;font-weight:700;letter-spacing:1.4px;margin-bottom:22px}
-h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(48px,6vw,82px);line-height:1.02;letter-spacing:-3px}
+.links{display:flex;gap:24px}
+.links a{color:var(--muted);text-decoration:none;font-size:14px}
+.links a:hover{color:#fff}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 22px;border-radius:10px;text-decoration:none;font-weight:700;font-size:14px;color:#fff;background:linear-gradient(135deg,var(--a),var(--b));transition:.2s}
+.btn:hover{transform:translateY(-2px)}
+.btn.s{padding:8px 15px;font-size:12px}
+.ghost{background:transparent;border:1px solid var(--line)}
+.hero{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:90px 5vw 60px;display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.badge{display:inline-block;padding:6px 13px;border-radius:99px;border:1px solid rgba(155,92,255,.35);background:rgba(155,92,255,.1);color:#c9a9ff;font-size:11px;font-weight:700;letter-spacing:1.4px;margin-bottom:20px}
+h1{font-family:'Space Grotesk',Arial,sans-serif;font-size:clamp(46px,6vw,78px);line-height:1.03;letter-spacing:-3px}
 h1 span{background:linear-gradient(90deg,var(--a),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent}
-.tag{color:var(--muted);font-size:17px;line-height:1.75;max-width:520px;margin:24px 0 32px}
-.acts{display:flex;gap:14px;flex-wrap:wrap}.note{margin-top:22px;color:#6f6f83;font-size:12px}
-.mock{width:100%;max-width:500px;border-radius:14px;overflow:hidden;background:rgba(17,17,27,.92);border:1px solid var(--line);box-shadow:0 30px 80px rgba(0,0,0,.6);transform:perspective(1200px) rotateY(-7deg) rotateX(3deg)}
-.mt{padding:13px 16px;font-size:12px;font-weight:700;letter-spacing:1px;background:linear-gradient(90deg,rgba(155,92,255,.35),rgba(76,125,255,.25));display:flex;gap:9px;align-items:center}
-.mt i{width:7px;height:7px;background:#b388ff;border-radius:50%;box-shadow:0 0 10px #b388ff}
-.mt b{margin-left:auto;opacity:.6}
-.mb{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:14px}
+.tag{color:var(--muted);font-size:17px;line-height:1.7;max-width:520px;margin:22px 0 30px}
+.acts{display:flex;gap:12px;flex-wrap:wrap}
+.note{margin-top:20px;color:#6f6f83;font-size:12px}
+.mock{max-width:480px;width:100%;border-radius:14px;overflow:hidden;background:rgba(17,17,27,.94);border:1px solid var(--line);box-shadow:0 30px 70px rgba(0,0,0,.6);transform:perspective(1000px) rotateY(-6deg);transition:transform .2s}
+.mt{padding:12px 15px;font-size:12px;font-weight:700;letter-spacing:1px;background:linear-gradient(90deg,rgba(155,92,255,.35),rgba(76,125,255,.25))}
+.mt i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#d9b3ff;margin-right:8px}
+.mt b{float:right;opacity:.6}
+.mb{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:13px}
 .mc{background:rgba(255,255,255,.025);border-radius:9px;padding:8px}
-.mh{font-size:10px;color:var(--a);font-weight:700;letter-spacing:1px;padding:6px 4px 10px}
-.mr{display:flex;justify-content:space-between;gap:5px;background:#1c1c29;border-radius:6px;padding:8px 6px;margin-bottom:6px;font-size:10px;color:#cfcfe0}
-.mr b{font-size:8px;padding:3px 5px;border-radius:4px;background:#333344;color:#999}.mr.on b{background:var(--a);color:#fff}
-.stats{position:relative;z-index:1;max-width:1120px;margin:0 auto 40px;padding:0 6vw;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.stats div{text-align:center;padding:24px 10px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.02)}
-.stats strong{display:block;font-family:'Space Grotesk';font-size:32px}.stats span{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
-.sec{position:relative;z-index:1;max-width:1240px;margin:0 auto;padding:70px 6vw}
-.head h2{font-family:'Space Grotesk';font-size:clamp(30px,4vw,46px);letter-spacing:-1.5px}.head p{color:var(--muted);margin-top:10px;font-size:15px}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px;margin-top:34px}
-.card{padding:28px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(160deg,rgba(255,255,255,.035),rgba(255,255,255,.01));transition:.25s}
+.mh{font-size:10px;color:var(--a);font-weight:700;letter-spacing:1px;padding:5px 3px 9px}
+.mr{display:flex;justify-content:space-between;background:#1c1c29;border-radius:6px;padding:7px 6px;margin-bottom:6px;font-size:10px}
+.mr b{font-size:8px;padding:2px 5px;border-radius:4px;background:#333344;color:#999}
+.mr.on b{background:var(--a);color:#fff}
+.stats{position:relative;z-index:2;max-width:1100px;margin:0 auto 30px;padding:0 5vw;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.stats div{text-align:center;padding:20px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.02)}
+.stats strong{display:block;font-family:'Space Grotesk',Arial,sans-serif;font-size:30px}
+.stats span{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+.sec{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:60px 5vw}
+h2{font-family:'Space Grotesk',Arial,sans-serif;font-size:clamp(28px,4vw,44px);letter-spacing:-1.5px}
+.sub{color:var(--muted);margin-top:8px;font-size:15px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:28px}
+.card{padding:24px;border:1px solid var(--line);border-radius:15px;background:linear-gradient(160deg,rgba(255,255,255,.035),rgba(255,255,255,.01));transition:.25s}
 .card:hover{border-color:rgba(155,92,255,.45);transform:translateY(-4px)}
-.ic{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;background:rgba(155,92,255,.14);font-size:19px;margin-bottom:18px}
-.card h3{font-family:'Space Grotesk';font-size:18px;margin-bottom:9px}.card p{color:var(--muted);font-size:14px;line-height:1.65}
-.tools{display:flex;flex-direction:column;gap:16px;margin:26px 0 22px}
-#q{width:100%;padding:14px 18px;border-radius:12px;border:1px solid var(--line);background:#13131d;color:#fff;font-size:14px;outline:none}
-#q:focus{border-color:var(--a)}
-.tabs{display:flex;gap:8px;flex-wrap:wrap}
-.tab{padding:8px 14px;border-radius:99px;border:1px solid var(--line);background:transparent;color:var(--muted);font-size:12px;font-weight:600;cursor:pointer}
-.tab:hover,.tab.on{border-color:var(--a);background:rgba(155,92,255,.14);color:#fff}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
-.mod{padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:#12121c;font-size:13px;display:flex;justify-content:space-between;gap:8px}
-.mod span{font-size:9px;color:var(--a);text-transform:uppercase;letter-spacing:.6px}
-.dl{border:1px solid rgba(155,92,255,.3);border-radius:20px;padding:26px;background:linear-gradient(135deg,rgba(155,92,255,.1),rgba(76,125,255,.05));display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;margin-top:34px}
-.dlmain{display:flex;align-items:center;gap:20px}
-.fi{width:62px;height:62px;border-radius:14px;display:grid;place-items:center;font-family:'Space Grotesk';font-weight:700;background:linear-gradient(135deg,var(--a),var(--b))}
-.dlmain h3{font-family:'Space Grotesk';font-size:20px}.dlmain p{color:var(--muted);font-size:13px;margin:5px 0 10px}
-.chips{display:flex;gap:8px;flex-wrap:wrap}.chips span{font-size:10px;padding:5px 9px;border:1px solid var(--line);border-radius:99px;color:#b9b9c9}
-.hash{display:flex;justify-content:space-between;gap:16px;margin-top:14px;padding:14px 18px;border:1px solid var(--line);border-radius:12px;background:#101018;flex-wrap:wrap;align-items:center}
-.hash span{font-size:10px;color:var(--a);letter-spacing:1px;margin-right:10px}.hash code{font-size:11px;color:#9a9aad;word-break:break-all}
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:34px}
-.step{padding:22px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.02)}
-.step i{font-family:'Space Grotesk';color:var(--a);font-style:normal;font-size:13px;font-weight:700}
-.step h4{margin:10px 0 8px;font-size:15px}.step p{color:var(--muted);font-size:13px;line-height:1.6}.step code{color:#c9a9ff}
-footer{position:relative;z-index:1;border-top:1px solid var(--line);padding:40px 6vw;text-align:center;color:var(--muted)}
-footer .brand{justify-content:center;margin-bottom:12px}footer p{font-size:13px}footer .sm{max-width:700px;margin:12px auto 0;font-size:11px;color:#6f6f83;line-height:1.6}
-.cursor-glow{position:fixed;left:50%;top:50%;width:420px;height:420px;border-radius:50%;pointer-events:none;z-index:0;background:radial-gradient(circle,rgba(155,92,255,.18),rgba(76,125,255,.07) 45%,transparent 70%);transform:translate(-50%,-50%);mix-blend-mode:screen}
-.card,.dl,.step{position:relative;overflow:hidden}
-.card:before,.dl:before,.step:before{content:"";position:absolute;inset:0;background:radial-gradient(300px circle at var(--px,50%) var(--py,50%),rgba(155,92,255,.14),transparent 60%);opacity:0;transition:opacity .25s;pointer-events:none}
-.card:hover:before,.dl:hover:before,.step:hover:before{opacity:1}
-@keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
-@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
-.badge,.hero h1,.hero .tag,.hero .acts,.hero .note{animation:fadeUp .8s cubic-bezier(.2,.8,.2,1) both}
-.badge{animation-delay:.05s}.hero h1{animation-delay:.13s}.hero .tag{animation-delay:.22s}.hero .acts{animation-delay:.3s}.hero .note{animation-delay:.38s}
-.g1{animation:floaty 12s ease-in-out infinite}.g2{animation:floaty 16s ease-in-out infinite reverse}
-.btn{position:relative;overflow:hidden}
-.btn:after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);transform:skewX(-20deg);transition:left .65s ease}
-.btn:hover:after{left:130%}
-.card,.step,.dl{transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .35s,box-shadow .35s}
-.card:hover{box-shadow:0 18px 45px rgba(0,0,0,.4)}
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
-.reveal.in{opacity:1;transform:none}
-.creator{margin-top:26px;padding-top:22px;border-top:1px solid var(--line)}
-.creator p{font-size:13px}.creator strong{color:#fff}
-.socials{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:14px}
-.socials a{padding:9px 16px;border-radius:999px;border:1px solid var(--line);color:#c9a9ff;text-decoration:none;font-size:12px;font-weight:600;transition:.25s}
-.socials a:hover{border-color:var(--a);background:rgba(155,92,255,.14);transform:translateY(-2px)}
-@media(max-width:900px){.cursor-glow{display:none}.mock{transform:none!important}.hero{grid-template-columns:1fr;padding-top:60px}.stats{grid-template-columns:repeat(2,1fr)}.links{display:none;position:absolute;top:70px;left:0;right:0;flex-direction:column;background:#0d0d15;padding:20px;border-bottom:1px solid var(--line)}.links.open{display:flex}.toggle{display:block}.mock{transform:none}}
+.ic{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:rgba(155,92,255,.14);font-size:18px;margin-bottom:14px}
+.card h3{font-family:'Space Grotesk',Arial,sans-serif;font-size:17px;margin-bottom:8px}
+.card p{color:var(--muted);font-size:13px;line-height:1.6}
+.search{width:100%;padding:13px 16px;border-radius:11px;border:1px solid var(--line);background:#13131d;color:#fff;font-size:14px;outline:none;margin:20px 0 14px}
+.tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:18px}
+.tab{padding:7px 13px;border-radius:99px;border:1px solid var(--line);background:transparent;color:var(--muted);font-size:12px;font-weight:600;cursor:pointer}
+.tab.on,.tab:hover{border-color:var(--a);background:rgba(155,92,255,.15);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:9px}
+.mod{padding:11px 13px;border:1px solid var(--line);border-radius:9px;background:#12121c;font-size:13px;display:flex;justify-content:space-between;gap:7px}
+.mod span{font-size:9px;color:var(--a);text-transform:uppercase;letter-spacing:.5px}
+.dl{border:1px solid rgba(155,92,255,.3);border-radius:18px;padding:24px;background:linear-gradient(135deg,rgba(155,92,255,.1),rgba(76,125,255,.05));display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin-top:28px}
+.dlm{display:flex;align-items:center;gap:18px}
+.fi{width:58px;height:58px;border-radius:13px;display:grid;place-items:center;font-family:'Space Grotesk',Arial,sans-serif;font-weight:700;background:linear-gradient(135deg,var(--a),var(--b))}
+.dlm h3{font-family:'Space Grotesk',Arial,sans-serif;font-size:19px}
+.dlm p{color:var(--muted);font-size:13px;margin:4px 0 9px}
+.chips span{display:inline-block;font-size:10px;padding:4px 8px;border:1px solid var(--line);border-radius:99px;color:#b9b9c9;margin-right:5px}
+.hash{display:flex;justify-content:space-between;gap:14px;margin-top:13px;padding:13px 16px;border:1px solid var(--line);border-radius:11px;background:#101018;flex-wrap:wrap;align-items:center}
+.hash span{font-size:10px;color:var(--a);letter-spacing:1px;margin-right:8px}
+.hash code{font-size:11px;color:#9a9aad;word-break:break-all}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:14px;margin-top:28px}
+.step{padding:20px;border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,.02)}
+.step i{font-family:'Space Grotesk',Arial,sans-serif;color:var(--a);font-style:normal;font-size:13px;font-weight:700}
+.step h4{margin:8px 0 6px;font-size:14px}
+.step p{color:var(--muted);font-size:12px;line-height:1.6}
+.step code{color:#c9a9ff}
+footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:36px 5vw;text-align:center;color:var(--muted)}
+footer .brand{justify-content:center;margin-bottom:10px}
+footer p{font-size:13px}
+.creator{margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}
+.socials{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:12px}
+.socials a{padding:8px 14px;border-radius:99px;border:1px solid var(--line);color:#c9a9ff;text-decoration:none;font-size:12px;font-weight:600}
+.small{max-width:700px;margin:12px auto 0;font-size:11px;color:#6f6f83;line-height:1.6}
+@media(max-width:900px){.hero{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.links{display:none}.mock{transform:none}#cursorGlow{display:none}}
 </style>
 </head>
 <body>
-<div class="cursor-glow" id="cursorGlow"></div>
+<div id="cursorGlow"></div>
 <div class="glow g1"></div><div class="glow g2"></div>
 <header class="nav">
 <a class="brand" href="#home"><span class="mark">N</span>&nbsp;NEBIX<small>CLIENT</small></a>
 <nav class="links" id="links"><a href="#home">Home</a><a href="#features">Features</a><a href="#modules">Modules</a><a href="#download">Download</a></nav>
-<a class="btn s" href="#download">Download ↓</a><button class="toggle" id="toggle">☰</button>
+<a class="btn s" href="#download">Download ↓</a>
 </header>
 <main>
 <section class="hero" id="home">
-<div>
-<div class="badge">MINECRAFT JAVA 26.3 · FABRIC</div>
+<div><div class="badge">MINECRAFT JAVA 26.3 · FABRIC</div>
 <h1>NEBIX <span>CLIENT</span></h1>
 <p class="tag">A premium all-in-one client built for power, speed and control. 170 modules, a clean ClickGUI and genuine performance tools — all client-side.</p>
-<div class="acts"><a class="btn" href="#download">Download v2.0 ↓</a><a class="btn ghost" href="#modules">Browse modules</a></div>
-<div class="note">RIGHT SHIFT opens the in-game GUI · Fabric Loader 0.19.3+ · Java 25</div>
-</div>
-<div class="mock">
-<div class="mt"><i></i> NEBIX <b>×</b></div>
-<div class="mb">
-<div class="mc"><div class="mh">COMBAT</div><div class="mr on"><span>Kill Aura</span><b>ON</b></div><div class="mr"><span>Aim Assist</span><b>OFF</b></div><div class="mr on"><span>Trigger Bot</span><b>ON</b></div><div class="mr"><span>Team Check</span><b>ON</b></div></div>
-<div class="mc"><div class="mh">RENDER</div><div class="mr on"><span>Entity ESP</span><b>ON</b></div><div class="mr"><span>Tracers</span><b>OFF</b></div><div class="mr on"><span>Fullbright</span><b>ON</b></div><div class="mr"><span>Storage ESP</span><b>OFF</b></div></div>
-<div class="mc"><div class="mh">PERFORMANCE</div><div class="mr on"><span>Entity Culling</span><b>ON</b></div><div class="mr on"><span>Particle Reducer</span><b>ON</b></div><div class="mr"><span>FPS Dashboard</span><b>OFF</b></div><div class="mr on"><span>Presets</span><b>ON</b></div></div>
+<div class="acts"><a class="btn" href="#download">Download v1 ↓</a><a class="btn ghost" href="#modules">Browse modules</a></div>
+<div class="note">RIGHT SHIFT opens the in-game GUI · Fabric Loader 0.19.3+ · Java 25</div></div>
+<div class="mock"><div class="mt"><i></i>NEBIX <b>×</b></div><div class="mb">
+<div class="mc"><div class="mh">COMBAT</div><div class="mr on"><span>Kill Aura</span><b>ON</b></div><div class="mr"><span>Aim Assist</span><b>OFF</b></div><div class="mr on"><span>Trigger Bot</span><b>ON</b></div></div>
+<div class="mc"><div class="mh">RENDER</div><div class="mr on"><span>Entity ESP</span><b>ON</b></div><div class="mr"><span>Tracers</span><b>OFF</b></div><div class="mr on"><span>Fullbright</span><b>ON</b></div></div>
+<div class="mc"><div class="mh">PERFORMANCE</div><div class="mr on"><span>Entity Culling</span><b>ON</b></div><div class="mr on"><span>Particle Reducer</span><b>ON</b></div><div class="mr"><span>FPS Dashboard</span><b>OFF</b></div></div>
 </div></div>
 </section>
 <div class="stats"><div><strong>170</strong><span>Modules</span></div><div><strong>9</strong><span>Categories</span></div><div><strong>26.3</strong><span>Minecraft</span></div><div><strong>25</strong><span>Java version</span></div></div>
-<section class="sec" id="features">
-<div class="head"><h2>Everything you need</h2><p>Built as a complete modular client — not a collection of placeholder buttons.</p></div>
+<section class="sec" id="features"><h2>Everything you need</h2><p class="sub">Built as a complete modular client — not a collection of placeholder buttons.</p>
 <div class="cards">
 <div class="card"><div class="ic">⚔</div><h3>Combat system</h3><p>Kill Aura, Aim Assist, Trigger Bot, Target HUD, reach control and Team Check for Hypixel-style team colours.</p></div>
-<div class="card"><div class="ic">◈</div><h3>Meteor-style ClickGUI</h3><p>Category columns, live search, expandable settings, keybind editor, themes and profiles. Draggable and uncluttered.</p></div>
+<div class="card"><div class="ic">◈</div><h3>Meteor-style ClickGUI</h3><p>Category columns, live search, expandable settings, keybind editor, themes and profiles.</p></div>
 <div class="card"><div class="ic">⚡</div><h3>Real FPS boost</h3><p>Entity culling, particle reduction, render tuning and five presets that change actual settings, plus an in-game benchmark.</p></div>
 <div class="card"><div class="ic">👁</div><h3>Visuals &amp; ESP</h3><p>Entity, player, chest, item and block ESP, tracers, nametags, fullbright, XRay highlights and damage indicators.</p></div>
 <div class="card"><div class="ic">✦</div><h3>Movement</h3><p>Toggle Sprint, Zoom, Freelook, Fly, Jesus, Safe Walk, Speed, No Fall and two Scaffold modes.</p></div>
 <div class="card"><div class="ic">⚙</div><h3>Configuration</h3><p>Named profiles, import/export, autosave, keybinds and persistent settings across worlds and servers.</p></div>
 </div></section>
-<section class="sec" id="modules">
-<div class="head"><h2>Module library</h2><p>170 modules across 9 categories. Filter the list to find what you need.</p></div>
-<div class="tools"><input id="q" placeholder="Search modules..." autocomplete="off"><div class="tabs" id="tabs"></div></div>
-<div class="grid" id="grid"></div>
-</section>
-<section class="sec" id="download">
-<div class="head"><h2>Download</h2><p>One jar. Drop it into your Fabric mods folder.</p></div>
-<div class="dl">
-<div class="dlmain"><div class="fi">JAR</div><div><h3>nebula-client-26.3-v1.jar</h3><p>Version 2.0 · Minecraft Java 26.3 · Client-side only</p><div class="chips"><span>405.8 KB</span><span>Fabric 0.19.3+</span><span>Java 25</span></div></div></div>
-<a class="btn" href="downloads/nebula-client-26.3-v1.jar" download>DOWNLOAD JAR ↓</a>
+<section class="sec" id="modules"><h2>Module library</h2><p class="sub">170 modules across 9 categories. Filter the list to find what you need.</p>
+<input class="search" id="moduleSearch" type="text" placeholder="Search modules..." autocomplete="off">
+<div class="tabs" id="tabs">
+<button class="tab on" data-cat="all">All</button><button class="tab" data-cat="combat">Combat</button><button class="tab" data-cat="movement">Movement</button><button class="tab" data-cat="render">Render</button><button class="tab" data-cat="player">Player</button><button class="tab" data-cat="world">World</button><button class="tab" data-cat="utility">Utility</button><button class="tab" data-cat="performance">Performance</button><button class="tab" data-cat="misc">Misc</button><button class="tab" data-cat="hud">HUD</button>
 </div>
-<div class="hash"><div><span>SHA-256</span><code>889536515F1D2D02A82DBA3065D12962BD64636276E082027D12F0A590443E0A</code></div><button class="btn ghost s" id="copy">Copy</button></div>
+<div class="grid" id="grid">
+      <div class="mod" data-cat="combat" data-name="Kill Aura">Kill Aura<span>combat</span></div>
+      <div class="mod" data-cat="combat" data-name="Aim Assist">Aim Assist<span>combat</span></div>
+      <div class="mod" data-cat="combat" data-name="Auto Clicker">Auto Clicker<span>combat</span></div>
+      <div class="mod" data-cat="combat" data-name="Trigger Bot">Trigger Bot<span>combat</span></div>
+      <div class="mod" data-cat="combat" data-name="Reach Display">Reach Display<span>combat</span></div>
+      <div class="mod" data-cat="combat" data-name="Target HUD">Target HUD<span>combat</span></div>
+      <div class="mod" data-cat="combat" data-name="Auto Totem">Auto Totem<span>combat</span></div>
+      <div class="mod" data-cat="combat" data-name="Auto Armor">Auto Armor<span>combat</span></div>
+      <div class="mod" data-cat="combat" data-name="Auto Weapon">Auto Weapon<span>combat</span></div>
+      <div class="mod" data-cat="combat" data-name="Criticals Testing">Criticals Testing<span>combat</span></div>
+      <div class="mod" data-cat="combat" data-name="Hitbox Display">Hitbox Display<span>combat</span></div>
+      <div class="mod" data-cat="combat" data-name="AntiKnockback Testing">AntiKnockback Testing<span>combat</span></div>
+      <div class="mod" data-cat="combat" data-name="Crystal Helper">Crystal Helper<span>combat</span></div>
+      <div class="mod" data-cat="combat" data-name="Surround Helper">Surround Helper<span>combat</span></div>
+      <div class="mod" data-cat="combat" data-name="Hole ESP">Hole ESP<span>combat</span></div>
+      <div class="mod" data-cat="combat" data-name="Totem Counter">Totem Counter<span>combat</span></div>
+      <div class="mod" data-cat="combat" data-name="Armor Break Alert">Armor Break Alert<span>combat</span></div>
+      <div class="mod" data-cat="combat" data-name="Health Indicator">Health Indicator<span>combat</span></div>
+      <div class="mod" data-cat="combat" data-name="Combat Notifications">Combat Notifications<span>combat</span></div>
+      <div class="mod" data-cat="combat" data-name="Target Selector">Target Selector<span>combat</span></div>
+      <div class="mod" data-cat="combat" data-name="Scaffold">Scaffold<span>combat</span></div>
+      <div class="mod" data-cat="combat" data-name="Scaffold Plus">Scaffold Plus<span>combat</span></div>
+      <div class="mod" data-cat="movement" data-name="Toggle Sprint">Toggle Sprint<span>movement</span></div>
+      <div class="mod" data-cat="movement" data-name="Toggle Sneak">Toggle Sneak<span>movement</span></div>
+      <div class="mod" data-cat="movement" data-name="Zoom">Zoom<span>movement</span></div>
+      <div class="mod" data-cat="movement" data-name="Freelook">Freelook<span>movement</span></div>
+      <div class="mod" data-cat="movement" data-name="Auto Jump">Auto Jump<span>movement</span></div>
+      <div class="mod" data-cat="movement" data-name="Safe Walk">Safe Walk<span>movement</span></div>
+      <div class="mod" data-cat="movement" data-name="Inventory Move">Inventory Move<span>movement</span></div>
+      <div class="mod" data-cat="movement" data-name="NoSlow Testing">NoSlow Testing<span>movement</span></div>
+      <div class="mod" data-cat="movement" data-name="Speed Display">Speed Display<span>movement</span></div>
+      <div class="mod" data-cat="movement" data-name="Jump Circles">Jump Circles<span>movement</span></div>
+      <div class="mod" data-cat="movement" data-name="Motion Tracker">Motion Tracker<span>movement</span></div>
+      <div class="mod" data-cat="movement" data-name="Elytra HUD">Elytra HUD<span>movement</span></div>
+      <div class="mod" data-cat="movement" data-name="Fall Distance">Fall Distance<span>movement</span></div>
+      <div class="mod" data-cat="movement" data-name="Movement Notifications">Movement Notifications<span>movement</span></div>
+      <div class="mod" data-cat="movement" data-name="Fly">Fly<span>movement</span></div>
+      <div class="mod" data-cat="movement" data-name="Jesus">Jesus<span>movement</span></div>
+      <div class="mod" data-cat="movement" data-name="Speed">Speed<span>movement</span></div>
+      <div class="mod" data-cat="movement" data-name="No Fall">No Fall<span>movement</span></div>
+      <div class="mod" data-cat="render" data-name="Player ESP">Player ESP<span>render</span></div>
+      <div class="mod" data-cat="render" data-name="Entity ESP">Entity ESP<span>render</span></div>
+      <div class="mod" data-cat="render" data-name="Tracers">Tracers<span>render</span></div>
+      <div class="mod" data-cat="render" data-name="Chest ESP">Chest ESP<span>render</span></div>
+      <div class="mod" data-cat="render" data-name="Storage ESP">Storage ESP<span>render</span></div>
+      <div class="mod" data-cat="render" data-name="Item ESP">Item ESP<span>render</span></div>
+      <div class="mod" data-cat="render" data-name="Mob ESP">Mob ESP<span>render</span></div>
+      <div class="mod" data-cat="render" data-name="Fullbright">Fullbright<span>render</span></div>
+      <div class="mod" data-cat="render" data-name="XRay">XRay<span>render</span></div>
+      <div class="mod" data-cat="render" data-name="Freecam">Freecam<span>render</span></div>
+      <div class="mod" data-cat="render" data-name="Nametags">Nametags<span>render</span></div>
+      <div class="mod" data-cat="render" data-name="Health ESP">Health ESP<span>render</span></div>
+      <div class="mod" data-cat="render" data-name="Skeleton ESP">Skeleton ESP<span>render</span></div>
+      <div class="mod" data-cat="render" data-name="Tracer Colors">Tracer Colors<span>render</span></div>
+      <div class="mod" data-cat="render" data-name="Block ESP">Block ESP<span>render</span></div>
+      <div class="mod" data-cat="render" data-name="Cave Finder">Cave Finder<span>render</span></div>
+      <div class="mod" data-cat="render" data-name="Waypoints">Waypoints<span>render</span></div>
+      <div class="mod" data-cat="render" data-name="Breadcrumbs">Breadcrumbs<span>render</span></div>
+      <div class="mod" data-cat="render" data-name="Custom Crosshair">Custom Crosshair<span>render</span></div>
+      <div class="mod" data-cat="render" data-name="Damage Indicators">Damage Indicators<span>render</span></div>
+      <div class="mod" data-cat="player" data-name="Auto Eat">Auto Eat<span>player</span></div>
+      <div class="mod" data-cat="player" data-name="Auto Fish">Auto Fish<span>player</span></div>
+      <div class="mod" data-cat="player" data-name="Auto Tool">Auto Tool<span>player</span></div>
+      <div class="mod" data-cat="player" data-name="Inventory Cleaner">Inventory Cleaner<span>player</span></div>
+      <div class="mod" data-cat="player" data-name="Inventory HUD">Inventory HUD<span>player</span></div>
+      <div class="mod" data-cat="player" data-name="Armor HUD">Armor HUD<span>player</span></div>
+      <div class="mod" data-cat="player" data-name="Potion HUD">Potion HUD<span>player</span></div>
+      <div class="mod" data-cat="player" data-name="Durability Alert">Durability Alert<span>player</span></div>
+      <div class="mod" data-cat="player" data-name="Item Counter">Item Counter<span>player</span></div>
+      <div class="mod" data-cat="player" data-name="Container Preview">Container Preview<span>player</span></div>
+      <div class="mod" data-cat="player" data-name="Shulker Preview">Shulker Preview<span>player</span></div>
+      <div class="mod" data-cat="player" data-name="Auto Respawn">Auto Respawn<span>player</span></div>
+      <div class="mod" data-cat="utility" data-name="Module Search">Module Search<span>utility</span></div>
+      <div class="mod" data-cat="utility" data-name="Notifications">Notifications<span>utility</span></div>
+      <div class="mod" data-cat="utility" data-name="Keybind Manager">Keybind Manager<span>utility</span></div>
+      <div class="mod" data-cat="utility" data-name="Config Profiles">Config Profiles<span>utility</span></div>
+      <div class="mod" data-cat="utility" data-name="Import / Export">Import / Export<span>utility</span></div>
+      <div class="mod" data-cat="utility" data-name="Save / Load">Save / Load<span>utility</span></div>
+      <div class="mod" data-cat="world" data-name="Coordinates">Coordinates<span>world</span></div>
+      <div class="mod" data-cat="world" data-name="Biome Display">Biome Display<span>world</span></div>
+      <div class="mod" data-cat="world" data-name="Time Display">Time Display<span>world</span></div>
+      <div class="mod" data-cat="world" data-name="Weather Display">Weather Display<span>world</span></div>
+      <div class="mod" data-cat="world" data-name="Light Level">Light Level<span>world</span></div>
+      <div class="mod" data-cat="world" data-name="Spawn Indicator">Spawn Indicator<span>world</span></div>
+      <div class="mod" data-cat="world" data-name="Slime Chunk Finder">Slime Chunk Finder<span>world</span></div>
+      <div class="mod" data-cat="world" data-name="Chunk Borders">Chunk Borders<span>world</span></div>
+      <div class="mod" data-cat="world" data-name="Block Overlay">Block Overlay<span>world</span></div>
+      <div class="mod" data-cat="world" data-name="Entity Counter">Entity Counter<span>world</span></div>
+      <div class="mod" data-cat="world" data-name="Village Finder">Village Finder<span>world</span></div>
+      <div class="mod" data-cat="world" data-name="Structure Waypoints">Structure Waypoints<span>world</span></div>
+      <div class="mod" data-cat="world" data-name="World Map">World Map<span>world</span></div>
+      <div class="mod" data-cat="world" data-name="Minimap">Minimap<span>world</span></div>
+      <div class="mod" data-cat="world" data-name="Server Information">Server Information<span>world</span></div>
+      <div class="mod" data-cat="performance" data-name="FPS Booster">FPS Booster<span>performance</span></div>
+      <div class="mod" data-cat="performance" data-name="Particle Reducer">Particle Reducer<span>performance</span></div>
+      <div class="mod" data-cat="performance" data-name="Entity Render Optimizer">Entity Render Optimizer<span>performance</span></div>
+      <div class="mod" data-cat="performance" data-name="Animation Reducer">Animation Reducer<span>performance</span></div>
+      <div class="mod" data-cat="performance" data-name="Dynamic Render Distance">Dynamic Render Distance<span>performance</span></div>
+      <div class="mod" data-cat="performance" data-name="Memory Monitor">Memory Monitor<span>performance</span></div>
+      <div class="mod" data-cat="performance" data-name="GC Monitor">GC Monitor<span>performance</span></div>
+      <div class="mod" data-cat="performance" data-name="Frame Time Monitor">Frame Time Monitor<span>performance</span></div>
+      <div class="mod" data-cat="performance" data-name="HUD Optimizer">HUD Optimizer<span>performance</span></div>
+      <div class="mod" data-cat="performance" data-name="Block Entity Optimizer">Block Entity Optimizer<span>performance</span></div>
+      <div class="mod" data-cat="performance" data-name="Texture Animation Reducer">Texture Animation Reducer<span>performance</span></div>
+      <div class="mod" data-cat="performance" data-name="Weather Effects Reducer">Weather Effects Reducer<span>performance</span></div>
+      <div class="mod" data-cat="performance" data-name="Cloud Optimizer">Cloud Optimizer<span>performance</span></div>
+      <div class="mod" data-cat="performance" data-name="Chunk Update Optimizer">Chunk Update Optimizer<span>performance</span></div>
+      <div class="mod" data-cat="performance" data-name="Performance Presets">Performance Presets<span>performance</span></div>
+      <div class="mod" data-cat="performance" data-name="FPS Dashboard">FPS Dashboard<span>performance</span></div>
+      <div class="mod" data-cat="performance" data-name="FPS Benchmark">FPS Benchmark<span>performance</span></div>
+      <div class="mod" data-cat="misc" data-name="Anti-AFK">Anti-AFK<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="AutoReconnect">AutoReconnect<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="AutoGG">AutoGG<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="AutoLeave">AutoLeave<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="AutoAccept">AutoAccept<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="ServerBrand">ServerBrand<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="PingSpoof Display">PingSpoof Display<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="ServerTPS Display">ServerTPS Display<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="ConnectionMonitor">ConnectionMonitor<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="ReconnectTimer">ReconnectTimer<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="PlayerCounter">PlayerCounter<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="TabListEnhancer">TabListEnhancer<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="ChatTimestamps">ChatTimestamps<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="ChatFilter">ChatFilter<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="CustomMainMenu">CustomMainMenu<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="CustomCape">CustomCape<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="CustomFont">CustomFont<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="CustomColors">CustomColors<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="CustomAnimations">CustomAnimations<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="CustomSounds">CustomSounds<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="CustomChat">CustomChat<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="CustomNametags">CustomNametags<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="CustomNotifications">CustomNotifications<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="AutoScreenshot">AutoScreenshot<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="WaypointManager">WaypointManager<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="FriendManager">FriendManager<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="EnemyList">EnemyList<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="MacroManager">MacroManager<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="CommandManager">CommandManager<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="ConfigManager">ConfigManager<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="ProfileSwitcher">ProfileSwitcher<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="ClipboardHelper">ClipboardHelper<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="ClientBrandDisplay">ClientBrandDisplay<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="ModuleDebugger">ModuleDebugger<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="CrashLogger">CrashLogger<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="WorldInformation">WorldInformation<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="CoordinateConverter">CoordinateConverter<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="OnlinePlayerTracker">OnlinePlayerTracker<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="SessionStatistics">SessionStatistics<span>misc</span></div>
+      <div class="mod" data-cat="misc" data-name="Screenshot Manager">Screenshot Manager<span>misc</span></div>
+      <div class="mod" data-cat="hud" data-name="FPS">FPS<span>hud</span></div>
+      <div class="mod" data-cat="hud" data-name="Ping">Ping<span>hud</span></div>
+      <div class="mod" data-cat="hud" data-name="Coordinates HUD">Coordinates HUD<span>hud</span></div>
+      <div class="mod" data-cat="hud" data-name="Direction HUD">Direction HUD<span>hud</span></div>
+      <div class="mod" data-cat="hud" data-name="Keystrokes">Keystrokes<span>hud</span></div>
+      <div class="mod" data-cat="hud" data-name="CPS">CPS<span>hud</span></div>
+      <div class="mod" data-cat="hud" data-name="Armor Durability">Armor Durability<span>hud</span></div>
+      <div class="mod" data-cat="hud" data-name="Clock">Clock<span>hud</span></div>
+      <div class="mod" data-cat="hud" data-name="Watermark">Watermark<span>hud</span></div>
+</div></section>
+<section class="sec" id="download"><h2>Download</h2><p class="sub">One jar. Drop it into your Fabric mods folder.</p>
+<div class="dl"><div class="dlm"><div class="fi">JAR</div><div><h3>nebula-client-26.3-v1.jar</h3><p>Version 2.0 · Minecraft Java 26.3 · Client-side only</p><div class="chips"><span>405.8 KB</span><span>Fabric 0.19.3+</span><span>Java 25</span></div></div></div>
+<a class="btn" href="downloads/nebula-client-26.3-v1.jar" download>DOWNLOAD JAR ↓</a></div>
+<div class="hash"><div><span>SHA-256</span><code>889536515F1D2D02A82DBA3065D12962BD64636276E082027D12F0A590443E0A</code></div><button class="btn s ghost" id="copyHash">Copy</button></div>
 <div class="steps">
 <div class="step"><i>01</i><h4>Install Fabric</h4><p>Install Fabric Loader 0.20.1 for Minecraft 26.3 with the official installer.</p></div>
 <div class="step"><i>02</i><h4>Add Fabric API</h4><p>Place <code>fabric-api-0.166.2+26.3.jar</code> in your mods folder.</p></div>
@@ -149,25 +299,56 @@ footer .brand{justify-content:center;margin-bottom:12px}footer p{font-size:13px}
 <div class="step"><i>04</i><h4>Launch &amp; press RIGHT SHIFT</h4><p>Use Java 25, then open the ClickGUI with RIGHT SHIFT in game.</p></div>
 </div></section>
 </main>
-<footer><div class="brand"><span class="mark">N</span>&nbsp;NEBIX<small>CLIENT</small></div><p>Built for Minecraft Java 26.3 · Fabric · Java 25</p><div class="creator"><p>Created by <strong>@A3Iris</strong></p><div class="socials"><a href="https://discord.com/users/1452181393965584426" target="_blank" rel="noopener">Discord</a><a href="https://discord.gg/nPGm4VuJ8N" target="_blank" rel="noopener">Join Server</a></div></div><p class="sm">Combat automation is intended for singleplayer or private servers where you are authorized to test. No anti-cheat evasion or unauthorized server manipulation.</p></footer>
+<footer><div class="brand"><span class="mark">N</span>&nbsp;NEBIX<small>CLIENT</small></div><p>Built for Minecraft Java 26.3 · Fabric · Java 25</p>
+<div class="creator"><p>Created by <strong>@A3Iris</strong></p><div class="socials"><a href="https://discord.com/users/1452181393965584426" target="_blank">Discord</a><a href="https://discord.gg/nPGm4VuJ8N" target="_blank">Join Server</a></div></div>
+<p class="small">Combat automation is intended for singleplayer or private servers where you are authorized to test. No anti-cheat evasion or unauthorized server manipulation.</p></footer>
 <script>
-const M=[['Kill Aura','combat'],['Aim Assist','combat'],['Auto Clicker','combat'],['Trigger Bot','combat'],['Reach Display','combat'],['Target HUD','combat'],['Auto Totem','combat'],['Auto Armor','combat'],['Auto Weapon','combat'],['Criticals Testing','combat'],['Hitbox Display','combat'],['AntiKnockback Testing','combat'],['Crystal Helper','combat'],['Surround Helper','combat'],['Hole ESP','combat'],['Totem Counter','combat'],['Armor Break Alert','combat'],['Health Indicator','combat'],['Combat Notifications','combat'],['Target Selector','combat'],['Scaffold','combat'],['Scaffold Plus','combat'],['Toggle Sprint','movement'],['Toggle Sneak','movement'],['Zoom','movement'],['Freelook','movement'],['Auto Jump','movement'],['Safe Walk','movement'],['Inventory Move','movement'],['NoSlow Testing','movement'],['Speed Display','movement'],['Jump Circles','movement'],['Motion Tracker','movement'],['Elytra HUD','movement'],['Fall Distance','movement'],['Movement Notifications','movement'],['Fly','movement'],['Jesus','movement'],['Speed','movement'],['No Fall','movement'],['Player ESP','render'],['Entity ESP','render'],['Tracers','render'],['Chest ESP','render'],['Storage ESP','render'],['Item ESP','render'],['Mob ESP','render'],['Fullbright','render'],['XRay','render'],['Freecam','render'],['Nametags','render'],['Health ESP','render'],['Skeleton ESP','render'],['Tracer Colors','render'],['Block ESP','render'],['Cave Finder','render'],['Waypoints','render'],['Breadcrumbs','render'],['Custom Crosshair','render'],['Damage Indicators','render'],['Auto Eat','player'],['Auto Fish','player'],['Auto Tool','player'],['Inventory Cleaner','player'],['Inventory HUD','player'],['Armor HUD','player'],['Potion HUD','player'],['Durability Alert','player'],['Item Counter','player'],['Container Preview','player'],['Shulker Preview','player'],['Auto Respawn','player'],['Module Search','utility'],['Notifications','utility'],['Keybind Manager','utility'],['Config Profiles','utility'],['Import / Export','utility'],['Save / Load','utility'],['Coordinates','world'],['Biome Display','world'],['Time Display','world'],['Weather Display','world'],['Light Level','world'],['Spawn Indicator','world'],['Slime Chunk Finder','world'],['Chunk Borders','world'],['Block Overlay','world'],['Entity Counter','world'],['Village Finder','world'],['Structure Waypoints','world'],['World Map','world'],['Minimap','world'],['Server Information','world'],['FPS Booster','performance'],['Particle Reducer','performance'],['Entity Render Optimizer','performance'],['Animation Reducer','performance'],['Dynamic Render Distance','performance'],['Memory Monitor','performance'],['GC Monitor','performance'],['Frame Time Monitor','performance'],['HUD Optimizer','performance'],['Block Entity Optimizer','performance'],['Texture Animation Reducer','performance'],['Weather Effects Reducer','performance'],['Cloud Optimizer','performance'],['Chunk Update Optimizer','performance'],['Performance Presets','performance'],['FPS Dashboard','performance'],['FPS Benchmark','performance'],['Anti-AFK','misc'],['AutoReconnect','misc'],['AutoGG','misc'],['AutoLeave','misc'],['AutoAccept','misc'],['ServerBrand','misc'],['PingSpoof Display','misc'],['ServerTPS Display','misc'],['ConnectionMonitor','misc'],['ReconnectTimer','misc'],['PlayerCounter','misc'],['TabListEnhancer','misc'],['ChatTimestamps','misc'],['ChatFilter','misc'],['CustomMainMenu','misc'],['CustomCape','misc'],['CustomFont','misc'],['CustomColors','misc'],['CustomAnimations','misc'],['CustomSounds','misc'],['CustomChat','misc'],['CustomNametags','misc'],['CustomNotifications','misc'],['AutoScreenshot','misc'],['WaypointManager','misc'],['FriendManager','misc'],['EnemyList','misc'],['MacroManager','misc'],['CommandManager','misc'],['ConfigManager','misc'],['ProfileSwitcher','misc'],['ClipboardHelper','misc'],['ClientBrandDisplay','misc'],['ModuleDebugger','misc'],['CrashLogger','misc'],['WorldInformation','misc'],['CoordinateConverter','misc'],['OnlinePlayerTracker','misc'],['SessionStatistics','misc'],['Screenshot Manager','misc'],['FPS','hud'],['Ping','hud'],['Coordinates HUD','hud'],['Direction HUD','hud'],['Keystrokes','hud'],['CPS','hud'],['Armor Durability','hud'],['Clock','hud'],['Watermark','hud']];
-const cats=['all','combat','movement','render','player','world','utility','performance','misc','hud'];
-const tabs=document.getElementById('tabs'),grid=document.getElementById('grid'),q=document.getElementById('q');
-let active='all';
-tabs.innerHTML=cats.map(c=>`<button class="tab${c==='all'?' on':''}" data-c="${c}">${c[0].toUpperCase()+c.slice(1)}</button>`).join('');
-function draw(){const s=q.value.toLowerCase();const list=M.filter(([n,c])=>(active==='all'||c===active)&&n.toLowerCase().includes(s));grid.innerHTML=list.length?list.map(([n,c])=>`<div class="mod">${n}<span>${c}</span></div>`).join(''):'<div style="color:#9a9aad;padding:30px">No modules found.</div>'}
-tabs.onclick=e=>{const b=e.target.closest('.tab');if(!b)return;document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));b.classList.add('on');active=b.dataset.c;draw()};
-q.oninput=draw;draw();
-const tg=document.getElementById('toggle'),lk=document.getElementById('links');tg.onclick=()=>lk.classList.toggle('open');lk.onclick=e=>{if(e.target.tagName==='A')lk.classList.remove('open')};
-document.getElementById('copy').onclick=async()=>{try{await navigator.clipboard.writeText('889536515F1D2D02A82DBA3065D12962BD64636276E082027D12F0A590443E0A');const b=document.getElementById('copy');b.textContent='Copied';setTimeout(()=>b.textContent='Copy',1500)}catch(e){}};
-const glow=document.getElementById('cursorGlow'),mock=document.querySelector('.mock');
-let tx=innerWidth/2,ty=innerHeight/2,cx=tx,cy=ty;
-addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY});
-function frame(){cx+=(tx-cx)*.12;cy+=(ty-cy)*.12;glow.style.left=cx+'px';glow.style.top=cy+'px';if(mock&&innerWidth>900){const rx=(cx/innerWidth-.5)*8,ry=(cy/innerHeight-.5)*-8;mock.style.transform=`perspective(1200px) rotateY(${-7+rx}deg) rotateX(${3+ry}deg)`}requestAnimationFrame(frame)}frame();
-document.querySelectorAll('.card,.dl,.step').forEach(el=>el.addEventListener('mousemove',e=>{const r=el.getBoundingClientRect();el.style.setProperty('--px',(e.clientX-r.left)+'px');el.style.setProperty('--py',(e.clientY-r.top)+'px')}));
-const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target)}},{threshold:.1});
-document.querySelectorAll('.card,.step,.dl,.stats div,.head').forEach(el=>{el.classList.add('reveal');ro.observe(el)});
+(function(){
+  var search=document.getElementById('moduleSearch');
+  var tabs=document.getElementById('tabs');
+  var mods=document.getElementById('grid').getElementsByClassName('mod');
+  var active='all';
+  function filter(){
+    var q=search.value.toLowerCase();
+    for(var i=0;i<mods.length;i++){
+      var el=mods[i];
+      var cat=el.getAttribute('data-cat');
+      var name=el.getAttribute('data-name');
+      var show=(active==='all'||cat===active)&&name.indexOf(q)!==-1;
+      el.style.display=show?'flex':'none';
+    }
+  }
+  search.oninput=filter;
+  var buttons=tabs.getElementsByTagName('button');
+  for(var i=0;i<buttons.length;i++){
+    buttons[i].onclick=function(){
+      for(var j=0;j<buttons.length;j++){buttons[j].className='tab';}
+      this.className='tab on';
+      active=this.getAttribute('data-cat');
+      filter();
+    };
+  }
+  var glow=document.getElementById('cursorGlow');
+  var mock=document.querySelector('.mock');
+  document.onmousemove=function(e){
+    glow.style.left=e.clientX+'px';
+    glow.style.top=e.clientY+'px';
+    if(mock&&window.innerWidth>900){
+      var rx=(e.clientX/window.innerWidth-.5)*8;
+      var ry=(e.clientY/window.innerHeight-.5)*-8;
+      mock.style.transform='perspective(1000px) rotateY('+(-6+rx)+'deg) rotateX('+ry+'deg)';
+    }
+  };
+  var copy=document.getElementById('copyHash');
+  copy.onclick=function(){
+    var text=document.querySelector('.hash code').innerHTML;
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text);
+      copy.innerHTML='Copied';
+      setTimeout(function(){copy.innerHTML='Copy';},1200);
+    }
+  };
+})();
 </script>
 </body>
 </html>
