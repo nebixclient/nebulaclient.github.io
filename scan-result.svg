@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 420" width="1000" height="420">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1b1b2b"/>
+      <stop offset="1" stop-color="#12121d"/>
+    </linearGradient>
+  </defs>
+  <rect width="1000" height="420" rx="14" fill="url(#bg)"/>
+  <rect x="1" y="1" width="998" height="418" rx="14" fill="none" stroke="#ffffff" stroke-opacity=".08"/>
+
+  <!-- score circle -->
+  <circle cx="90" cy="100" r="46" fill="none" stroke="#37c98a" stroke-opacity=".18" stroke-width="10"/>
+  <circle cx="90" cy="100" r="46" fill="none" stroke="#37c98a" stroke-width="10" stroke-dasharray="289" stroke-dashoffset="14" transform="rotate(-90 90 100)"/>
+  <text x="90" y="102" text-anchor="middle" fill="#eafff5" font-family="Arial,sans-serif" font-size="34" font-weight="700">0</text>
+  <text x="90" y="124" text-anchor="middle" fill="#8fa39a" font-family="Arial,sans-serif" font-size="14">/ 62</text>
+  <text x="90" y="178" text-anchor="middle" fill="#9aa0ae" font-family="Arial,sans-serif" font-size="13">Community Score</text>
+
+  <!-- main banner -->
+  <rect x="170" y="24" width="806" height="150" rx="10" fill="#2b3350" fill-opacity=".45" stroke="#ffffff" stroke-opacity=".06"/>
+  <text x="196" y="60" fill="#6ee7a8" font-family="Arial,sans-serif" font-size="17" font-weight="700">&#10003; No security vendors flagged this file as malicious</text>
+  <text x="196" y="100" fill="#c9cede" font-family="monospace" font-size="13">889536515f1d2d02a82dba3065d12962bd64636276e082027d12f0a590443e0a</text>
+  <text x="196" y="126" fill="#ffffff" font-family="Arial,sans-serif" font-size="15" font-weight="600">nebula-client-26.3-v1.jar</text>
+  <text x="196" y="152" fill="#8b93a6" font-family="Arial,sans-serif" font-size="12">jar &#160;|&#160; Size 405.78 KB &#160;|&#160; Last analysis: recent</text>
+
+  <!-- tabs -->
+  <text x="196" y="212" fill="#8aa2ff" font-family="Arial,sans-serif" font-size="13" font-weight="700">DETECTION</text>
+  <text x="316" y="212" fill="#9aa0ae" font-family="Arial,sans-serif" font-size="13">DETAILS</text>
+  <text x="410" y="212" fill="#9aa0ae" font-family="Arial,sans-serif" font-size="13">RELATIONS</text>
+  <text x="520" y="212" fill="#9aa0ae" font-family="Arial,sans-serif" font-size="13">BEHAVIOR</text>
+  <text x="630" y="212" fill="#9aa0ae" font-family="Arial,sans-serif" font-size="13">COMMUNITY</text>
+  <line x1="170" y1="226" x2="976" y2="226" stroke="#ffffff" stroke-opacity=".08"/>
+
+  <!-- vendor rows -->
+  <g font-family="Arial,sans-serif" font-size="13">
+    <text x="196" y="256" fill="#c9cede">Acronis (Static ML)</text><text x="470" y="256" fill="#6ee7a8">&#10003; Undetected</text>
+    <text x="600" y="256" fill="#c9cede">AhnLab-V3</text><text x="820" y="256" fill="#6ee7a8">&#10003; Undetected</text>
+    <text x="196" y="290" fill="#c9cede">Alibaba</text><text x="470" y="290" fill="#6ee7a8">&#10003; Undetected</text>
+    <text x="600" y="290" fill="#c9cede">AliCloud</text><text x="820" y="290" fill="#6ee7a8">&#10003; Undetected</text>
+    <text x="196" y="324" fill="#c9cede">ALYac</text><text x="470" y="324" fill="#6ee7a8">&#10003; Undetected</text>
+    <text x="600" y="324" fill="#c9cede">Anti-AVL</text><text x="820" y="324" fill="#6ee7a8">&#10003; Undetected</text>
+    <text x="196" y="358" fill="#c9cede">Avast</text><text x="470" y="358" fill="#6ee7a8">&#10003; Undetected</text>
+    <text x="600" y="358" fill="#c9cede">AVG</text><text x="820" y="358" fill="#6ee7a8">&#10003; Undetected</text>
+  </g>
+</svg>
