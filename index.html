@@ -22,7 +22,7 @@ body{font-family:Inter,Arial,sans-serif;background:var(--bg);color:#f2f1f7;overf
 .nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 5vw;background:rgba(8,8,14,.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
 .brand{font-family:'Space Grotesk',Arial,sans-serif;font-weight:700;font-size:18px;color:#fff;text-decoration:none;display:flex;align-items:center;gap:8px}
 .mark{width:30px;height:30px;border-radius:8px;display:inline-grid;place-items:center;background:linear-gradient(135deg,var(--a),var(--b))}
-.brand small{color:var(--a);margin-left:3px}
+.brand small{color:var(--a);margin-left:3px}.ver{color:#fff!important;background:rgba(155,92,255,.35);padding:2px 6px;border-radius:6px;font-size:10px!important;margin-left:5px}
 .links{display:flex;gap:24px}
 .links a{color:var(--muted);text-decoration:none;font-size:14px}
 .links a:hover{color:#fff}
@@ -96,7 +96,7 @@ footer p{font-size:13px}
 <div id="cursorGlow"></div>
 <div class="glow g1"></div><div class="glow g2"></div>
 <header class="nav">
-<a class="brand" href="#home"><span class="mark">N</span>&nbsp;NEBIX<small>CLIENT</small></a>
+<a class="brand" href="#home"><span class="mark">N</span>&nbsp;NEBIX<small>CLIENT</small> <small class="ver" id="versionBadge">v1</small></a>
 <nav class="links" id="links"><a href="#home">Home</a><a href="#features">Features</a><a href="#modules">Modules</a><a href="#download">Download</a></nav>
 <a class="btn s" href="#download">Download ↓</a>
 </header>
@@ -105,7 +105,7 @@ footer p{font-size:13px}
 <div><div class="badge">MINECRAFT JAVA 26.3 · FABRIC</div>
 <h1>NEBIX <span>CLIENT</span></h1>
 <p class="tag">A premium all-in-one client built for power, speed and control. 170 modules, a clean ClickGUI and genuine performance tools — all client-side.</p>
-<div class="acts"><a class="btn" href="#download">Download v1 ↓</a><a class="btn ghost" href="#modules">Browse modules</a></div>
+<div class="acts"><a class="btn" id="heroDownload" href="#download">Download v1 ↓</a><a class="btn ghost" href="#modules">Browse modules</a></div>
 <div class="note">RIGHT SHIFT opens the in-game GUI · Fabric Loader 0.19.3+ · Java 25</div></div>
 <div class="mock"><div class="mt"><i></i>NEBIX <b>×</b></div><div class="mb">
 <div class="mc"><div class="mh">COMBAT</div><div class="mr on"><span>Kill Aura</span><b>ON</b></div><div class="mr"><span>Aim Assist</span><b>OFF</b></div><div class="mr on"><span>Trigger Bot</span><b>ON</b></div></div>
@@ -291,7 +291,7 @@ footer p{font-size:13px}
 </div></section>
 <section class="sec" id="download"><h2>Download</h2><p class="sub">One jar. Drop it into your Fabric mods folder.</p>
 <div class="dl"><div class="dlm"><div class="fi">JAR</div><div><h3>nebix-client-26.3-v5.jar</h3><p>Version 2.0 · Minecraft Java 26.3 · Client-side only</p><div class="chips"><span>406.2 KB</span><span>Fabric 0.19.3+</span><span>Java 25</span></div></div></div>
-<a class="btn" href="downloads/nebix-client-26.3-v5.jar" download>DOWNLOAD JAR ↓</a></div>
+<a class="btn" id="jarLink" href="nebix-client-26.3-v5.jar" download>DOWNLOAD JAR ↓</a></div>
 <div class="hash"><div><span>SHA-256</span><code>2B4AE341E18E8E32529F76778F402F450A1D08FE9F818B402736A9E40606CCE9</code></div><button class="btn s ghost" id="copyHash">Copy</button></div>
 <div class="steps">
 <div class="step"><i>01</i><h4>Install Fabric</h4><p>Install Fabric Loader 0.20.1 for Minecraft 26.3 with the official installer.</p></div>
@@ -352,7 +352,7 @@ footer p{font-size:13px}
       setTimeout(function(){copy.innerHTML='Copy';},1200);
     }
   };
-var dc=document.getElementById("downloadCount");function getCount(){var x=new XMLHttpRequest();x.open("GET","https://abacus.jasoncameron.dev/get/nebixclient/downloads",true);x.onreadystatechange=function(){if(x.readyState===4&&x.status===200){try{dc.innerHTML=JSON.parse(x.responseText).value}catch(e){}}};x.send()}getCount();var dl=document.querySelector("a[download]");if(dl){dl.onclick=function(){var x=new XMLHttpRequest();x.open("GET","https://abacus.jasoncameron.dev/hit/nebixclient/downloads",true);x.onreadystatechange=function(){if(x.readyState===4&&x.status===200){try{dc.innerHTML=JSON.parse(x.responseText).value}catch(e){}}};x.send()}};
+var jl=document.getElementById("jarLink");if(jl){var m=jl.getAttribute("href").match(/v(\d+)\.jar/);if(m){var v="v"+m[1];var vb=document.getElementById("versionBadge");if(vb)vb.innerHTML=v;var hd=document.getElementById("heroDownload");if(hd)hd.innerHTML="Download "+v+" ↓";}}var dc=document.getElementById("downloadCount");function getCount(){var x=new XMLHttpRequest();x.open("GET","https://abacus.jasoncameron.dev/get/nebixclient/downloads",true);x.onreadystatechange=function(){if(x.readyState===4&&x.status===200){try{dc.innerHTML=JSON.parse(x.responseText).value}catch(e){}}};x.send()}getCount();var dl=document.querySelector("a[download]");if(dl){dl.onclick=function(){var x=new XMLHttpRequest();x.open("GET","https://abacus.jasoncameron.dev/hit/nebixclient/downloads",true);x.onreadystatechange=function(){if(x.readyState===4&&x.status===200){try{dc.innerHTML=JSON.parse(x.responseText).value}catch(e){}}};x.send()}};
 })();
 </script>
 </body>
